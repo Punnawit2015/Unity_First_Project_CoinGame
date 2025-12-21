@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
@@ -11,6 +12,8 @@ public class Controll : MonoBehaviour
     public float speed = 5f;
     public float jumpforce;
     bool isGround;
+    public int Score = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,13 +38,10 @@ public class Controll : MonoBehaviour
             isGround = false;
             rig.AddForce(Vector3.up * jumpforce, ForceMode.Impulse);
         }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (transform.position.y < 5)
         {
-            Application.Quit();
-            Debug.Log("Quit");
+            GameOver();
         }
-
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -50,4 +50,13 @@ public class Controll : MonoBehaviour
             isGround = true;
         }
     }
+    public void GameOver()
+    {
+        SceneManager.LoadScene(0);
+    }
+//    public void AddScore(int amount)
+//    {
+//        Score += amount;
+//        ui.setScoreText(Score);
+//    }
 }
